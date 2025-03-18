@@ -1,8 +1,10 @@
 const jwt = require('jsonwebtoken');
-
+// Auth middleware'ı (doğrulama kontrolü) 
 const auth = (req, res, next) => {
     try {
-        const token = req.headers.authorization.split(' ')[1];
+        // Authorization başlığındaki token'ı almak
+        const token = req.headers.authorization.split(' ')[1]; // Authorization header'ından 'Bearer <token>' şeklinde gelen token'ı ayırıyoruz
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
